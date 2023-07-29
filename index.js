@@ -2,8 +2,12 @@ const express=require('express');
 const app=express();
 const bodyParser=require('body-parser');
 const os=require('os');
+const mongoose = require('mongoose');
 
 // get, post, use, all
+
+mongoose.connect("mongodb://127.0.0.1:27017/datagather")
+var db=mongoose.connection;
 
 // Use () -> JSON & Urlencoded 
 app.use(bodyParser.json()); //Translate
@@ -41,11 +45,14 @@ app.get('/form',(req,res)=>{
 
 // POST API -> Data Exchange
 app.post('/data',(req,res)=>{
-    const uname=req.body.userName;
+    const uname=req.body.uname;
    
     console.log(os.platform())
     // res.send(uname);
     // res.redirect('/');
+    var data={
+        "username":uname
+    }
     res.redirect("https://github.com/soniharsha47/backend_based/actions/runs/5699873501")
 });
 
